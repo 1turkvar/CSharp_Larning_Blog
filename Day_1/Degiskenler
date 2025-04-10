@@ -1,0 +1,458 @@
+# C# Değişkenler Rehberi
+
+## İçindekiler
+1. [Değişken Nedir?](#değişken-nedir)
+2. [Veri Tipleri](#veri-tipleri)
+3. [Değişken Tanımlama](#değişken-tanımlama)
+4. [Değişken İsimlendirme Kuralları](#değişken-isimlendirme-kuralları)
+5. [Değer Atama ve İlklendirme](#değer-atama-ve-ilklendirme)
+6. [Sabitler (Constants)](#sabitler-constants)
+7. [Tip Dönüşümleri](#tip-dönüşümleri)
+8. [Var Anahtar Kelimesi](#var-anahtar-kelimesi)
+9. [Değişken Kapsamları](#değişken-kapsamları)
+10. [Referans ve Değer Tipleri](#referans-ve-değer-tipleri)
+11. [Nullable Tipler](#nullable-tipler)
+12. [Örnek Kod Parçaları](#örnek-kod-parçaları)
+
+## Değişken Nedir?
+
+Değişken, programda veri saklamak için kullanılan isimlendirilmiş bellek konumudur. Her değişkenin bir veri tipi vardır ve bu veri tipi, değişkenin saklanabileceği değerlerin türünü belirler.
+
+## Veri Tipleri
+
+C# güçlü bir şekilde yazılmış bir dil olduğundan, her değişkenin bir veri tipi vardır. İşte C#'taki temel veri tipleri:
+
+### Sayısal Tipler
+
+| Veri Tipi | Boyut (Byte) | Aralık | 
+|-----------|--------------|--------|
+| `byte`    | 1            | 0 ile 255 |
+| `sbyte`   | 1            | -128 ile 127 |
+| `short`   | 2            | -32,768 ile 32,767 |
+| `ushort`  | 2            | 0 ile 65,535 |
+| `int`     | 4            | -2,147,483,648 ile 2,147,483,647 |
+| `uint`    | 4            | 0 ile 4,294,967,295 |
+| `long`    | 8            | -9,223,372,036,854,775,808 ile 9,223,372,036,854,775,807 |
+| `ulong`   | 8            | 0 ile 18,446,744,073,709,551,615 |
+
+### Ondalık Sayı Tipleri
+
+| Veri Tipi | Boyut (Byte) | Hassasiyet |
+|-----------|--------------|------------|
+| `float`   | 4            | ~7 digit (32 bit) |
+| `double`  | 8            | ~15-16 digit (64 bit) |
+| `decimal` | 16           | 28-29 anlamlı basamak (128 bit) |
+
+### Diğer Temel Tipler
+
+| Veri Tipi | Boyut | Açıklama |
+|-----------|-------|----------|
+| `char`    | 2 byte | Tek bir Unicode karakter |
+| `bool`    | 1 byte | `true` veya `false` değeri |
+| `string`  | Değişken | Unicode karakter dizisi |
+| `object`  | Değişken | Tüm tiplerin temel sınıfı |
+
+## Değişken Tanımlama
+
+C#'ta değişken tanımlamak için önce veri tipini, ardından değişken adını belirtmeniz gerekir:
+
+```csharp
+veriTipi değişkenAdı;
+```
+
+Örneğin:
+
+```csharp
+int yaş;
+string isim;
+double maaş;
+bool evliMi;
+```
+
+## Değişken İsimlendirme Kuralları
+
+C#'ta değişken isimlendirme için aşağıdaki kurallara uymanız gerekir:
+
+1. İsimler harf, alt çizgi (`_`) veya `@` karakteri ile başlamalıdır.
+2. İsimler rakam içerebilir, ancak rakamla başlayamaz.
+3. İsimler boşluk veya özel karakterler içeremez.
+4. C# anahtar kelimeleri (örn. `int`, `class`, `if` vb.) değişken adı olarak kullanılamaz. Ancak önüne `@` işareti eklenirse kullanılabilir (örn. `@int`).
+5. Değişken adları büyük/küçük harf duyarlıdır (`yaş` ve `Yaş` farklı değişkenlerdir).
+
+### İsimlendirme Stilleri
+
+C# uygulamalarında yaygın olarak kullanılan isimlendirme stilleri:
+
+- **camelCase**: İlk kelime küçük harf, sonraki kelimelerin ilk harfi büyük (yerel değişkenler için)
+  ```csharp
+  int öğrenciYaşı;
+  ```
+
+- **PascalCase**: Her kelimenin ilk harfi büyük (sınıflar, metotlar ve özellikler için)
+  ```csharp
+  string ÖğrenciAdı;
+  ```
+
+- **_camelCase**: Alt çizgi ile başlayan camelCase (özel sınıf üyeleri için)
+  ```csharp
+  private string _kullanıcıAdı;
+  ```
+
+## Değer Atama ve İlklendirme
+
+Değişkenlere tanımlandıkları anda değer atanabilir:
+
+```csharp
+int yaş = 25;
+string isim = "Ahmet";
+double maaş = 5000.50;
+bool evliMi = false;
+```
+
+Değişkenlere birden fazla yoldan değer atayabilirsiniz:
+
+```csharp
+// Tanımlama ve atama ayrı
+int yaş;
+yaş = 25;
+
+// Tek satırda birden fazla değişken tanımlama
+int x = 10, y = 20, z = 30;
+
+// Bir değişkenin değerini diğerine atama
+int birinci = 5;
+int ikinci = birinci; // ikinci değişkeni 5 değerini alır
+```
+
+## Sabitler (Constants)
+
+Sabitler, programın çalışma süresi boyunca değişmeyen değerlerdir. `const` anahtar kelimesi ile tanımlanırlar:
+
+```csharp
+const double PI = 3.14159;
+const string UYGULAMA_ADI = "Personel Yönetim Sistemi";
+```
+
+Sabitler için önemli noktalar:
+- Tanımlandıkları anda değer atanmalıdır
+- Değerleri daha sonra değiştirilemez
+- İsimlendirmede genellikle büyük harfler kullanılır
+
+## Tip Dönüşümleri
+
+C#'ta tip dönüşümleri iki şekilde gerçekleştirilir:
+
+### 1. Kapalı (Implicit) Dönüşüm
+
+Küçük veri türünden daha büyük veri türüne güvenli dönüşüm:
+
+```csharp
+int tamsayi = 100;
+long büyükTamsayi = tamsayi; // int'ten long'a otomatik dönüşüm
+```
+
+### 2. Açık (Explicit) Dönüşüm (Cast)
+
+Büyük veri türünden daha küçük veri türüne dönüşüm, veri kaybı riski vardır:
+
+```csharp
+double ondalikli = 9.8;
+int tamsayi = (int)ondalikli; // tamsayi değeri 9 olur, ondalık kısım kaybolur
+```
+
+### Convert Sınıfı
+
+`Convert` sınıfı, veri tipleri arasında dönüşüm yapmak için çeşitli metotlar sağlar:
+
+```csharp
+string sayiMetni = "123";
+int sayi = Convert.ToInt32(sayiMetni);
+
+double ondalikli = 15.8;
+string metin = Convert.ToString(ondalikli);
+```
+
+### Parse Metodu
+
+String değerleri uygun veri tiplerine dönüştürmek için:
+
+```csharp
+string yasMetni = "30";
+int yas = int.Parse(yasMetni);
+
+string fiyatMetni = "29.99";
+double fiyat = double.Parse(fiyatMetni);
+```
+
+### TryParse Metodu
+
+Parse metodunun daha güvenli bir versiyonu, dönüşüm başarısız olursa false döner:
+
+```csharp
+string giris = "abc";
+int sonuc;
+bool başarılı = int.TryParse(giris, out sonuc);
+// başarılı = false, sonuc = 0 olur
+```
+
+## Var Anahtar Kelimesi
+
+`var` anahtar kelimesi, değişkenin tipini derleyicinin belirlemesini sağlar:
+
+```csharp
+var sayı = 10; // int olarak tanımlanır
+var isim = "Ali"; // string olarak tanımlanır
+var liste = new List<int>(); // List<int> olarak tanımlanır
+```
+
+Önemli noktalar:
+- `var` kullanırken değişkene mutlaka bir ilk değer atanmalıdır
+- Atanan değerin tipi, değişkenin tipi olarak belirlenir ve daha sonra değiştirilemez
+- `var` sadece yerel değişkenler için kullanılabilir
+
+## Değişken Kapsamları
+
+Değişkenlerin erişilebilirliği tanımlandıkları kapsama (scope) bağlıdır:
+
+### 1. Yerel Değişkenler (Local Variables)
+
+Bir metot, yapıcı (constructor) veya blok içinde tanımlanan değişkenlerdir:
+
+```csharp
+void MetoduÇalıştır()
+{
+    int yerelDeğişken = 5; // Bu değişkene sadece bu metot içinden erişilebilir
+    
+    if(yerelDeğişken > 0)
+    {
+        int blokDeğişkeni = 10; // Bu değişkene sadece bu if bloğu içinden erişilebilir
+    }
+    // blokDeğişkeni burada erişilemez
+}
+// yerelDeğişken burada erişilemez
+```
+
+### 2. Sınıf Üye Değişkenleri (Fields)
+
+Bir sınıf içinde tanımlanan değişkenlerdir:
+
+```csharp
+public class Öğrenci
+{
+    // Sınıf üye değişkenleri (fields)
+    private int öğrenciNo;
+    public string ad;
+    protected string soyad;
+    
+    public void BilgileriAyarla(int no, string isim)
+    {
+        öğrenciNo = no; // Sınıf üye değişkenine metot içinden erişim
+        ad = isim;
+    }
+}
+```
+
+## Referans ve Değer Tipleri
+
+C#'ta iki temel değişken tipi vardır:
+
+### 1. Değer Tipleri (Value Types)
+
+Değerleri doğrudan bellekte saklanan tiplerdir:
+- Sayısal tipler (`int`, `float`, `double`, vs.)
+- `bool`
+- `char`
+- `struct` yapıları
+- `enum` numaralandırmaları
+
+```csharp
+int a = 10;
+int b = a; // a'nın değeri b'ye kopyalanır
+a = 20; // b hala 10 değerine sahiptir
+```
+
+### 2. Referans Tipleri (Reference Types)
+
+Verilerin adresini (referansını) saklayan tiplerdir:
+- `string`
+- `class` sınıfları
+- `interface`
+- `delegate`
+- `array` diziler
+
+```csharp
+var liste1 = new List<int> { 1, 2, 3 };
+var liste2 = liste1; // liste2, liste1 ile aynı listeyi referans eder 
+liste1.Add(4); // Her iki liste de [1, 2, 3, 4] içerir
+```
+
+## Nullable Tipler
+
+Değer tiplerinin `null` değer alabilmesini sağlayan yapılardır:
+
+```csharp
+// Normal değer tipi - null olamaz
+int normal = 5;
+// normal = null; // Derleme hatası
+
+// Nullable değer tipi - null olabilir
+int? nullOlabilir = 10;
+nullOlabilir = null; // Geçerli
+
+// Alternatif syntax
+Nullable<double> nullableDouble = null;
+```
+
+Nullable tipler için özel operatörler:
+
+```csharp
+int? sayı = null;
+
+// HasValue özelliği - değer varsa true
+if (sayı.HasValue)
+{
+    Console.WriteLine($"Değer: {sayı.Value}");
+}
+
+// ?? operatörü - null ise varsayılan değer
+int değer = sayı ?? 0;
+
+// ??= operatörü - null ise atama
+sayı ??= 100; // sayı null ise, 100 değeri atanır
+```
+
+## Örnek Kod Parçaları
+
+### Temel Değişken Kullanımı
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Temel değişken tanımlama ve değer atama
+        string kullanıcıAdı = "ahmetk";
+        int yaş = 30;
+        double maaş = 5000.50;
+        bool aktifMi = true;
+        
+        // Değerleri yazdırma
+        Console.WriteLine($"Kullanıcı: {kullanıcıAdı}");
+        Console.WriteLine($"Yaş: {yaş}");
+        Console.WriteLine($"Maaş: {maaş:C}"); // Para birimi formatında
+        Console.WriteLine($"Aktif mi: {aktifMi}");
+        
+        // Değer değiştirme
+        yaş = 31;
+        maaş += 500;
+        
+        Console.WriteLine($"Yeni yaş: {yaş}");
+        Console.WriteLine($"Yeni maaş: {maaş:C}");
+    }
+}
+```
+
+### Tip Dönüşümleri
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // String'den diğer tiplere dönüşüm
+        string sayıMetni = "123";
+        
+        int tamsayı = int.Parse(sayıMetni);
+        Console.WriteLine($"int.Parse: {tamsayı}");
+        
+        double ondalıklı;
+        bool başarılı = double.TryParse("45.67", out ondalıklı);
+        Console.WriteLine($"TryParse başarılı mı: {başarılı}, sonuç: {ondalıklı}");
+        
+        // Sayısal tiplerden string'e dönüşüm
+        int sayı = 42;
+        string metin = sayı.ToString();
+        Console.WriteLine($"ToString: {metin}");
+        
+        // Özel format ile dönüşüm
+        double para = 1234.56;
+        string paraMetni = para.ToString("C"); // Para birimi
+        Console.WriteLine($"Para formatı: {paraMetni}");
+        
+        // Açık tür dönüşümü
+        double büyükSayı = 1500.75;
+        int küçükSayı = (int)büyükSayı;
+        Console.WriteLine($"Double'dan int'e cast: {küçükSayı}"); // 1500
+    }
+}
+```
+
+### Var Kullanımı
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // var ile değişken tanımlama
+        var isim = "Ayşe";
+        var yaş = 28;
+        var ortalama = 85.6;
+        
+        Console.WriteLine($"Tip: {isim.GetType()}, Değer: {isim}");
+        Console.WriteLine($"Tip: {yaş.GetType()}, Değer: {yaş}");
+        Console.WriteLine($"Tip: {ortalama.GetType()}, Değer: {ortalama}");
+        
+        // Kompleks tiplerle var kullanımı
+        var sayılar = new List<int> { 1, 2, 3, 4, 5 };
+        var öğrenci = new { Ad = "Mehmet", Soyad = "Yılmaz", No = 101 };
+        
+        Console.WriteLine($"Liste tipi: {sayılar.GetType()}");
+        Console.WriteLine($"Öğrenci tipi: {öğrenci.GetType()}, Adı: {öğrenci.Ad}");
+    }
+}
+```
+
+### Nullable Tipler
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Nullable değişkenler tanımlama
+        int? nullSayı = null;
+        DateTime? tarih = null;
+        
+        Console.WriteLine($"nullSayı değeri var mı: {nullSayı.HasValue}");
+        
+        // Null Coalescing operatörü (??)
+        int sonuç = nullSayı ?? -1;
+        Console.WriteLine($"Sonuç: {sonuç}");
+        
+        // Nullable değişkene değer atama
+        nullSayı = 100;
+        Console.WriteLine($"Yeni değer: {nullSayı}");
+        Console.WriteLine($"Değer var mı: {nullSayı.HasValue}");
+        
+        // Nullable DateTime kullanımı
+        tarih = DateTime.Now;
+        
+        if (tarih.HasValue)
+        {
+            Console.WriteLine($"Bugünün tarihi: {tarih.Value.ToShortDateString()}");
+        }
+    }
+}
+```
+
+Bu rehber C# dilinde değişkenler hakkında temel ve orta düzey bilgileri içermektedir. Daha ileri düzey konular için resmi Microsoft C# dokümantasyonunu incelemenizi öneririm.
